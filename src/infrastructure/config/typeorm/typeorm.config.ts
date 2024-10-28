@@ -15,9 +15,9 @@ const config: DataSourceOptions = {
   entities: [__dirname + './../../**/*.entity{.ts,.js}'],
   synchronize: false,
   schema: process.env.DATABASE_SCHEMA,
-  migrationsRun: true,
-  migrationsTableName: 'migration_todo',
-  migrations: ['database/migrations/**/*{.ts,.js}'],
+  // migrationsRun: true,
+  // migrationsTableName: 'migration_todo',
+  // migrations: ['database/migrations/**/*{.ts,.js}'],
   // ssl: {
   //   rejectUnauthorized: false,
   // },
