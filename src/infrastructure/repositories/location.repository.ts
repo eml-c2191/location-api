@@ -6,13 +6,15 @@ import { Repository } from "typeorm";
 import { LocationModel } from "src/domain/model/location";
 
 @Injectable()
-export class DatabaseTodoRepository implements ILocationRepository {
+export class LocationRepository implements ILocationRepository {
     constructor(
         @InjectRepository(Location)
         private readonly locationEntityRepository: Repository<Location>,
       ) {}
-    insert(location: LocationModel): Promise<void> {
-        throw new Error("Method not implemented.");
+    async  insert(location: LocationModel): Promise<LocationModel> {
+        const locationEntity = this.toLocationEntity(location);
+        const result = await this.locationEntityRepository.insert(locationEntity);
+        return this.toLocationModel(result.generatedMaps[0] as Location);
     }
     findAll(): Promise<LocationModel[]> {
         throw new Error("Method not implemented.");
@@ -26,4 +28,23 @@ export class DatabaseTodoRepository implements ILocationRepository {
     deleteById(id: number): Promise<void> {
         throw new Error("Method not implemented.");
     }
+    private toLocationModel(locationEntity: Location): LocationModel {
+        const locationModel: LocationModel = new LocationModel();
+    
+        locationModel.id = locationEntity.id;
+        locationModel.area = locationEntity.area;
+        locationModel.name = locationEntity.name;
+        locationModel.number = locationEntity.number
+    
+        return locationModel;
+      }
+    private toLocationEntity(location: LocationModel): Location {
+        const locationEntity: Location = new Location();
+    
+        locationEntity.id = location.id;
+        locationEntity.area = location.area;
+        locationEntity.name = location.name;
+        locationEntity.number = location.number
+        return locationEntity;
+      }
 }

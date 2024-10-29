@@ -28,7 +28,6 @@ async function bootstrap() {
   // swagger config
   if (env !== 'production') {
     const config = new DocumentBuilder()
-      .addBearerAuth()
       .setTitle(' location API  Nestjs')
       .setDescription('location API')
       .setVersion('1')

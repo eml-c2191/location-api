@@ -28,4 +28,4 @@ export const getTypeOrmModuleOptions = (config: EnvironmentConfigService): TypeO
         }),
       ],
 })
-export class TypeormModule {}
+export class TypeOrmConfigModule {}
