@@ -16,7 +16,7 @@ export class LocationController {
         @Inject(UsecasesProxyModule.POST_LOCATION_USECASES_PROXY)
         private readonly postlocationUsecaseProxy: UseCaseProxy<addLocationUseCases>,
       ) {}
-      @Post('location')
+      @Post('locations')
       @ApiResponseType(LocationPresenter, true)
       async addLocation(@Body() addLocationDto: AddLocationDto) {
         const locationCreated = await this.postlocationUsecaseProxy.getInstance().execute(addLocationDto);

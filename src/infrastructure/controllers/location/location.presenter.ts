@@ -10,11 +10,13 @@ export class LocationPresenter {
     number: string;
     @ApiProperty()
     area: number;
-  
+    @ApiProperty()
+    parentId?: number;
     constructor(locationModel: LocationModel) {
       this.id = locationModel.id;
       this.name = locationModel.name;
       this.number = locationModel.number;
       this.area = locationModel.area;
+      this.parentId = locationModel.parentId
     }
 }

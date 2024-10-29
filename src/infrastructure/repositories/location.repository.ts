@@ -12,7 +12,7 @@ export class LocationRepository implements ILocationRepository {
         private readonly locationEntityRepository: Repository<Location>,
       ) {}
     async  insert(location: LocationModel): Promise<LocationModel> {
-        const locationEntity = this.toLocationEntity(location);
+        const locationEntity = await this.toLocationEntity(location);
         const result = await this.locationEntityRepository.insert(locationEntity);
         return this.toLocationModel(result.generatedMaps[0] as Location);
     }
@@ -34,17 +34,22 @@ export class LocationRepository implements ILocationRepository {
         locationModel.id = locationEntity.id;
         locationModel.area = locationEntity.area;
         locationModel.name = locationEntity.name;
-        locationModel.number = locationEntity.number
-    
+        locationModel.number = locationEntity.number;
+        
         return locationModel;
       }
-    private toLocationEntity(location: LocationModel): Location {
+    private async toLocationEntity(location: LocationModel): Promise<Location> {
         const locationEntity: Location = new Location();
-    
+        
         locationEntity.id = location.id;
         locationEntity.area = location.area;
         locationEntity.name = location.name;
         locationEntity.number = location.number
+
+        if (location.parentId) {
+            const parent = await this.locationEntityRepository.findOneOrFail({ where: { id :location.parentId } });
+            locationEntity.parent = parent;
+          }
         return locationEntity;
       }
 }

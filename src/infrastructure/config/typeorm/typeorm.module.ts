@@ -12,7 +12,7 @@ export const getTypeOrmModuleOptions = (config: EnvironmentConfigService): TypeO
       password: config.getDatabasePassword(),
       database: config.getDatabaseName(),
       entities: [__dirname + './../../**/*.entity{.ts,.js}'],
-      synchronize: false,
+      synchronize: true,
       schema: process.env.DATABASE_SCHEMA,
       // ssl: {
       //   rejectUnauthorized: false,

@@ -3,4 +3,5 @@ export class LocationModel {
     name: string;
     number: string;
     area: number;
+    parentId?: number;
 }
