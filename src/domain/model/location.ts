@@ -1,7 +1,7 @@
 export class LocationModel {
     id: number;
     name: string;
-    number: string;
+    level: string;
     area: number;
     parentId?: number;
     children?: LocationModel[];

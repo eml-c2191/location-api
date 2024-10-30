@@ -7,7 +7,7 @@ export class LocationPresenter {
     @ApiProperty()
     name: string;
     @ApiProperty()
-    number: string;
+    level: string;
     @ApiProperty()
     area: number;
     @ApiProperty()
@@ -17,7 +17,7 @@ export class LocationPresenter {
     constructor(locationModel: LocationModel) {
       this.id = locationModel.id;
       this.name = locationModel.name;
-      this.number = locationModel.number;
+      this.level = locationModel.level;
       this.area = locationModel.area;
       this.parentId = locationModel.parentId;
       this.children = locationModel.children

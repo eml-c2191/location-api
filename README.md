@@ -32,6 +32,32 @@
 $ npm install
 ```
 
+## Postgres
+
+Install postgre following guide : https://www.w3schools.com/postgresql/postgresql_install.php
+Project enable DATABASE_SYNCHRONIZE so as long as you have postgre installed on your machine then it good to go.
+
+## What have been done 
+
+- self-logger : All applications are using a logger, there are plenty of loggers, for example, cloud providers (AWS, GCP, Azure, …)use different loggers. Moreover, change your logger can be painful.
+It is for this reason, I‘m using a module with an interface to abstract this problem to my logic and be no dependant on the cloud provider or an npm module.
+- The logic is the same as the logger module. To avoid exception errors related to a specific Provider or Nodejs framework. I abstract the service.
+- environment config for reading file .env
+- Apply Clean Architecture
+- API CRUD location
+- Filter which is A middleware to catch errors in the code. It is not related to the requirement but it will help me get more info in the debugg process
+- Interceptor to return a formatted response and gets a harmony for all response.
+- Module Usecases proxy: 
+   link between use cases and infrastructure, you will inject different services needed for your use cases. 
+   In this way, it will be easy to change service in the future and you respect the dependency injection (SOLID)
+- handling exception
+- validate input using  class-validator.
+- validate basic case for get, update and delete  action
+
+## What I will do next 
+
+- implement authentication using jwt
+
 ## Compile and run the project
 
 ```bash
@@ -90,9 +116,7 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 ## Stay in touch
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- Author - Nhut Dang 
 
 ## License
 

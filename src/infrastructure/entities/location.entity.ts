@@ -1,6 +1,7 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, Tree, TreeChildren, TreeParent } from "typeorm";
 
-@Entity()
+@Entity({ name: 'locations' })
+@Tree('closure-table')
 export class Location {
   @PrimaryGeneratedColumn()
   id: number;
@@ -9,16 +10,14 @@ export class Location {
   name: string;
 
   @Column()
-  number: string;
+  level: string;
 
   @Column('float')
   area: number;
 
-  // Self-referencing relation for parent location
-  @ManyToOne(() => Location, (location) => location.children, { nullable: true })
-  parent: Location;
-
-  // One-to-many relation for child locations
-  @OneToMany(() => Location, (location) => location.parent)
+  @TreeChildren()
   children: Location[];
+
+  @TreeParent({ onDelete: 'CASCADE' })
+  parent: Location;
 }
