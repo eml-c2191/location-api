@@ -4,4 +4,5 @@ export class LocationModel {
     number: string;
     area: number;
     parentId?: number;
+    children?: LocationModel[];
 }

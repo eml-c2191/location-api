@@ -16,8 +16,9 @@ export class LocationRepository implements ILocationRepository {
         const result = await this.locationEntityRepository.insert(locationEntity);
         return this.toLocationModel(result.generatedMaps[0] as Location);
     }
-    findAll(): Promise<LocationModel[]> {
-        throw new Error("Method not implemented.");
+    async findAll(): Promise<LocationModel[]> {
+        const locationsEntity = await this.locationEntityRepository.find({ relations: ['children'] });
+        return locationsEntity.map((locationsEntity) => this.toLocationModel(locationsEntity));
     }
     findById(id: number): Promise<LocationModel> {
         throw new Error("Method not implemented.");
@@ -36,6 +37,9 @@ export class LocationRepository implements ILocationRepository {
         locationModel.name = locationEntity.name;
         locationModel.number = locationEntity.number;
         
+        if (locationEntity.children && locationEntity.children.length > 0) {
+            locationModel.children = locationEntity.children.map(child => this.toLocationModel(child));
+          }
         return locationModel;
       }
     private async toLocationEntity(location: LocationModel): Promise<Location> {
