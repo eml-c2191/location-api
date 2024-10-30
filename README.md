@@ -71,7 +71,7 @@ It is for this reason, I‘m using a module with an interface to abstract this p
 - Validate basic case for get, update and delete  action
 
 ## What I will do next 
-
+- try to fix known issue
 - implement authentication using jwt
 
 ## Compile and run the project
