@@ -39,7 +39,7 @@ Project enable DATABASE_SYNCHRONIZE so as long as you have postgre installed on 
 
 ## What have been done 
 
-- self-logger : All applications are using a logger, there are plenty of loggers, for example, cloud providers (AWS, GCP, Azure, …)use different loggers. Moreover, change your logger can be painful.
+- Self-logger : All applications are using a logger, there are plenty of loggers, for example, cloud providers (AWS, GCP, Azure, …)use different loggers. Moreover, change your logger can be painful.
 It is for this reason, I‘m using a module with an interface to abstract this problem to my logic and be no dependant on the cloud provider or an npm module.
 - The logic is the same as the logger module. To avoid exception errors related to a specific Provider or Nodejs framework. I abstract the service.
 - environment config for reading file .env
@@ -50,9 +50,9 @@ It is for this reason, I‘m using a module with an interface to abstract this p
 - Module Usecases proxy: 
    link between use cases and infrastructure, you will inject different services needed for your use cases. 
    In this way, it will be easy to change service in the future and you respect the dependency injection (SOLID)
-- handling exception
-- validate input using  class-validator.
-- validate basic case for get, update and delete  action
+- Handling exception by using global exception filter. I also have Exception Module to use in case we want to self-handle others case
+- Validate input using  class-validator.
+- Validate basic case for get, update and delete  action
 
 ## What I will do next 
 
