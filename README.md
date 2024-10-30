@@ -49,6 +49,9 @@ DATABASE_SYNCHRONIZE=true
 ```
 ## Put file .env in same hierarchy with src folder
 
+## Knows issue
+
+- Reading file local.env not working when start with NodeEnv = local
 
 ## What have been done 
 
