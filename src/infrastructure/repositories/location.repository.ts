@@ -23,8 +23,18 @@ export class LocationRepository implements ILocationRepository {
     findById(id: number): Promise<LocationModel> {
         throw new Error("Method not implemented.");
     }
-    updateLocation(id: number, updateData: LocationModel): Promise<void> {
-        throw new Error("Method not implemented.");
+    async updateLocation(updateData: LocationModel): Promise<void> {
+        await this.locationEntityRepository.update(
+            {
+              id: updateData.id,
+            },
+            {                        // Fields to update
+                name: updateData.name,
+                number: updateData.number,
+                area: updateData.area,
+                parent: updateData.parentId ? { id: updateData.parentId } : null // Optional, if updating parent
+            }
+          );
     }
     deleteById(id: number): Promise<void> {
         throw new Error("Method not implemented.");

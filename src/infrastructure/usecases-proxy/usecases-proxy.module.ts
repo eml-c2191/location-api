@@ -7,6 +7,7 @@ import { LocationRepository } from '../repositories/location.repository';
 import { UseCaseProxy } from './usecase-proxy';
 import { addLocationUseCases } from 'src/usecases/location/add-location.usecases';
 import { getLocationsUseCases } from 'src/usecases/location/get-locations.usecases';
+import { updateLocationUseCases } from 'src/usecases/location/update-location.usecases';
 
 @Module({
     imports: [LoggerModule, RepositoriesModule, ExceptionsModule],
@@ -14,7 +15,7 @@ import { getLocationsUseCases } from 'src/usecases/location/get-locations.usecas
 export class UsecasesProxyModule {
     static POST_LOCATION_USECASES_PROXY = 'postLocationUsecasesProxy';
     static GET_LOCATIONS_USECASES_PROXY = 'getLocationsUsecasesProxy';
-
+    static PUT_LOCATION_USECASES_PROXY = 'putLocationUsecasesProxy';
     static register(): DynamicModule {
       return {
         module: UsecasesProxyModule,
@@ -30,10 +31,17 @@ export class UsecasesProxyModule {
             provide: UsecasesProxyModule.GET_LOCATIONS_USECASES_PROXY,
             useFactory: (locationRepository: LocationRepository) => new UseCaseProxy(new getLocationsUseCases(locationRepository)),
           },
+          {
+            inject: [LoggerService, LocationRepository],
+            provide: UsecasesProxyModule.PUT_LOCATION_USECASES_PROXY,
+            useFactory: (logger: LoggerService, locationRepository: LocationRepository) =>
+              new UseCaseProxy(new updateLocationUseCases(logger, locationRepository)),
+          },
         ],
         exports: [
           UsecasesProxyModule.POST_LOCATION_USECASES_PROXY,
-          UsecasesProxyModule.GET_LOCATIONS_USECASES_PROXY
+          UsecasesProxyModule.GET_LOCATIONS_USECASES_PROXY,
+          UsecasesProxyModule.PUT_LOCATION_USECASES_PROXY
         ],
       };
     }
