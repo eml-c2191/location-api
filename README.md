@@ -37,6 +37,19 @@ $ npm install
 Install postgre following guide : https://www.w3schools.com/postgresql/postgresql_install.php
 Project enable DATABASE_SYNCHRONIZE so as long as you have postgre installed on your machine then it good to go.
 
+## Create file .env, copy and paste below string into it.
+```bash
+DATABASE_HOST=localhost
+DATABASE_PORT=5432
+DATABASE_USER=postgres
+DATABASE_PASSWORD={your password}
+DATABASE_NAME=postgres
+DATABASE_SCHEMA=public
+DATABASE_SYNCHRONIZE=true
+```
+## Put file .env in same hierarchy with src folder
+
+
 ## What have been done 
 
 - Self-logger : All applications are using a logger, there are plenty of loggers, for example, cloud providers (AWS, GCP, Azure, …)use different loggers. Moreover, change your logger can be painful.

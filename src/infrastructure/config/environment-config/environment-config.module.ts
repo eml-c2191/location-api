@@ -6,7 +6,7 @@ import { config } from 'dotenv';
   imports: [
     ConfigModule.forRoot({
       load: [config],
-      envFilePath: './env/local.env',
+      envFilePath: '.../local.env',
       ignoreEnvFile: !(process.env.NODE_ENV === 'local' || process.env.NODE_ENV === 'test'),
       isGlobal: true
     }),
