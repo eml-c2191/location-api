@@ -11,6 +11,24 @@ export class LocationRepository implements ILocationRepository {
         @InjectRepository(Location)
         private readonly locationEntityRepository: TreeRepository<Location>,
       ) {}
+    async findDescendants(id: number): Promise<LocationModel[]> {
+        const parent = await this.locationEntityRepository.findOne({ where: { id: id } });
+
+        if (!parent) {
+            throw new NotFoundException(`Parent with id ${id} not found`);
+        }
+        const descendants = await this.locationEntityRepository.findDescendants(parent);
+        return descendants.map((locationsEntity) => this.toLocationModel(locationsEntity));
+    }
+    async findAncestors(id: number): Promise<LocationModel[]> {
+        const location = await this.locationEntityRepository.findOne({ where: { id: id } });
+
+        if (!location) {
+            throw new NotFoundException(`Location with id ${id} not found`);
+        }
+        const locationsEntity = await this.locationEntityRepository.findAncestors(location);
+        return locationsEntity.map((locationsEntity) => this.toLocationModel(locationsEntity));
+    }
     async  insert(location: LocationModel): Promise<LocationModel> {
         const locationEntity = await this.toLocationEntity(location);
         const result = await this.locationEntityRepository.save(locationEntity);

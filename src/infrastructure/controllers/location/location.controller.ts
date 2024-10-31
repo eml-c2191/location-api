@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Inject, ParseIntPipe, Post, Put, Query } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Inject, Param, ParseIntPipe, Post, Put, Query } from "@nestjs/common";
 import { ApiExtraModels, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { LocationPresenter } from "./location.presenter";
 import { UsecasesProxyModule } from "src/infrastructure/usecases-proxy/usecases-proxy.module";
@@ -45,15 +45,29 @@ export class LocationController {
       async updateLocation(@Body() updateLocationDto: UpdateLocationDto) {
         await this.updateLocationUsecaseProxy.getInstance().execute(updateLocationDto);
       }
-      @Delete('')
+      @Delete(':id/')
       @ApiResponseType(LocationPresenter, true)
-      async deleteLocation(@Query('id', ParseIntPipe) id: number) {
+      async deleteLocation(@Param('id') id: number) {
         await this.deleteLocationUsecaseProxy.getInstance().execute(id);
       }
-      @Get('location')
+      @Get(':id/')
       @ApiResponseType(LocationPresenter, true)
-      async getLocationById(@Query('id', ParseIntPipe) id: number) {
+      async getLocationById(@Param('id') id: number) {
         const location =   await this.getLocationUsecaseProxy.getInstance().execute(id);
         return  new LocationPresenter(location);
       }
+      @Get(':id/descendants')
+      @ApiResponseType(LocationPresenter, true)
+      async findDescendants(@Param('id') id: number) {
+        const locations = await this.getlocationsUsecaseProxy.getInstance().executeToGetDescendants(id);
+        return locations.map((location) => new LocationPresenter(location));
+      }
+    
+      @Get(':id/ancestors')
+      @ApiResponseType(LocationPresenter, true)
+      async findAncestors(@Param('id') id: number) {
+        const locations = await this.getlocationsUsecaseProxy.getInstance().executeToGetDescendants(id);
+        return locations.map((location) => new LocationPresenter(location));
+      }
+    
 }
