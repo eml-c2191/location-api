@@ -9,6 +9,7 @@ import { LocationDto, UpdateLocationDto } from "./location.dto";
 import { getLocationsUseCases } from "src/usecases/location/get-locations.usecases";
 import { updateLocationUseCases } from "src/usecases/location/update-location.usecases";
 import { deleteLocationUseCases } from "src/usecases/location/delete-location.usecases";
+import { getLocationUseCases } from "src/usecases/location/get-location.usecase";
 
 @Controller('locations')
 @ApiTags('locations')
@@ -24,6 +25,8 @@ export class LocationController {
         private readonly updateLocationUsecaseProxy: UseCaseProxy<updateLocationUseCases>,
         @Inject(UsecasesProxyModule.DELETE_LOCATION_USECASES_PROXY)
         private readonly deleteLocationUsecaseProxy: UseCaseProxy<deleteLocationUseCases>,
+        @Inject(UsecasesProxyModule.GET_LOCATION_USECASES_PROXY)
+        private readonly getLocationUsecaseProxy: UseCaseProxy<getLocationUseCases>,
       ) {}
       @Post('')
       @ApiResponseType(LocationPresenter, true)
@@ -46,5 +49,11 @@ export class LocationController {
       @ApiResponseType(LocationPresenter, true)
       async deleteLocation(@Query('id', ParseIntPipe) id: number) {
         await this.deleteLocationUsecaseProxy.getInstance().execute(id);
+      }
+      @Get('location')
+      @ApiResponseType(LocationPresenter, true)
+      async getLocationById(@Query('id', ParseIntPipe) id: number) {
+        const location =   await this.getLocationUsecaseProxy.getInstance().execute(id);
+        return  new LocationPresenter(location);
       }
 }

@@ -9,6 +9,7 @@ import { addLocationUseCases } from 'src/usecases/location/add-location.usecases
 import { getLocationsUseCases } from 'src/usecases/location/get-locations.usecases';
 import { updateLocationUseCases } from 'src/usecases/location/update-location.usecases';
 import { deleteLocationUseCases } from 'src/usecases/location/delete-location.usecases';
+import { getLocationUseCases } from 'src/usecases/location/get-location.usecase';
 
 @Module({
     imports: [LoggerModule, RepositoriesModule, ExceptionsModule],
@@ -16,6 +17,7 @@ import { deleteLocationUseCases } from 'src/usecases/location/delete-location.us
 export class UsecasesProxyModule {
     static POST_LOCATION_USECASES_PROXY = 'postLocationUsecasesProxy';
     static GET_LOCATIONS_USECASES_PROXY = 'getLocationsUsecasesProxy';
+    static GET_LOCATION_USECASES_PROXY = 'getLocationUsecasesProxy';
     static PUT_LOCATION_USECASES_PROXY = 'putLocationUsecasesProxy';
     static DELETE_LOCATION_USECASES_PROXY = 'deleteLocationUsecasesProxy';
     static register(): DynamicModule {
@@ -45,12 +47,18 @@ export class UsecasesProxyModule {
             useFactory: (logger: LoggerService, locationRepository: LocationRepository) =>
               new UseCaseProxy(new deleteLocationUseCases(logger, locationRepository)),
           },
+          {
+            inject: [LocationRepository],
+            provide: UsecasesProxyModule.GET_LOCATION_USECASES_PROXY,
+            useFactory: (locationRepository: LocationRepository) => new UseCaseProxy(new getLocationUseCases(locationRepository)),
+          },
         ],
         exports: [
           UsecasesProxyModule.POST_LOCATION_USECASES_PROXY,
           UsecasesProxyModule.GET_LOCATIONS_USECASES_PROXY,
           UsecasesProxyModule.PUT_LOCATION_USECASES_PROXY,
-          UsecasesProxyModule.DELETE_LOCATION_USECASES_PROXY
+          UsecasesProxyModule.DELETE_LOCATION_USECASES_PROXY,
+          UsecasesProxyModule.GET_LOCATION_USECASES_PROXY
         ],
       };
     }
