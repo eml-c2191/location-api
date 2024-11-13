@@ -34,8 +34,8 @@ $ npm install
 
 ## Postgres
 
-Install postgre following guide : https://www.w3schools.com/postgresql/postgresql_install.php
-Project enable DATABASE_SYNCHRONIZE so as long as you have postgre installed on your machine then it good to go.
+- Install postgre following guide : https://www.w3schools.com/postgresql/postgresql_install.php
+- Project enable DATABASE_SYNCHRONIZE so as long as you have postgre installed on your machine then it good to go.
 
 ## Create file .env, copy and paste below string into it.
 ```bash
@@ -69,6 +69,8 @@ It is for this reason, I‘m using a module with an interface to abstract this p
 - Handling exception by using global exception filter. I also have Exception Module to use in case we want to self-handle others case
 - Validate input using  class-validator.
 - Validate basic case for get, update and delete  action
+- Validate circular dependency for update action
+- Enforce unique constraint on both building and Location number
 
 ## What I will do next 
 - try to fix known issue

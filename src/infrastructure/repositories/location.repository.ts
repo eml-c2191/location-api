@@ -88,7 +88,7 @@ export class LocationRepository implements ILocationRepository {
     //Check for circular dependency if a new parent is specified
     if (updateData.parentId !== undefined && updateData.parentId !== null) {
       // Run a recursive CTE to check if `updateData.parentId` is a descendant of `updateData.id`
-      const descendants = await this.dataSource.query(
+      const  descendants: Location[]   = await this.dataSource.query(
         `
         WITH RECURSIVE Descendants AS (
             SELECT id, number, name, building, area, parent_id
