@@ -10,7 +10,8 @@ export class addLocationUseCases {
       const locationModel = new LocationModel();
       locationModel.area = locationDto.area;
       locationModel.name = locationDto.name;
-      locationModel.level = locationDto.level;
+      locationModel.number = locationDto.number;
+      locationModel.building = locationDto.building;
       locationModel.parentId = locationDto.parentId
       const result = await this.locationRepository.insert(locationModel);
       this.logger.log('addLocationUseCases execute', 'New location have been inserted');

@@ -5,11 +5,15 @@ export class LocationDto {
     @ApiProperty({ required: true })
     @IsNotEmpty()
     @IsString()
+    readonly number: string;
+    @ApiProperty({ required: true })
+    @IsNotEmpty()
+    @IsString()
     readonly name: string;
     @ApiProperty({ required: true })
     @IsNotEmpty()
     @IsString()
-    readonly level: string;
+    readonly building: string;
     @ApiProperty({ required: true })
     @IsNotEmpty()
     @IsNumber()

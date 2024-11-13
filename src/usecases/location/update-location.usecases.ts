@@ -11,7 +11,7 @@ export class updateLocationUseCases {
       locationModel.id = locationDto.id;
       locationModel.area = locationDto.area;
       locationModel.name = locationDto.name;
-      locationModel.level = locationDto.level;
+      locationModel.building = locationDto.building;
       locationModel.parentId = locationDto.parentId
       await this.locationRepository.updateLocation(locationModel);
       this.logger.log('updateLocationUseCases execute', `Location ${locationModel.id} have been updated`);
